@@ -13,3 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.Navbar {
+  display: flex;
+  list-style-type: none;
+}
