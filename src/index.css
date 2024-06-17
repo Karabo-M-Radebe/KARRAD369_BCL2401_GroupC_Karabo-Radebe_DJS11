@@ -8,3 +8,11 @@
 .li {
   margin-right: 10px;
 }
+
+.day {
+  background-color: white;
+}
+
+.night {
+  background-color: gray;
+}
