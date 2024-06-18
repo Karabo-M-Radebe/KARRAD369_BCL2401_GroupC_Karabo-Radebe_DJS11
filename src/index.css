@@ -3,6 +3,7 @@
   display: flex;
   list-style-type: none;
   float: right;
+  margin-bottom: 150px;
 }
 
 .li {
@@ -12,6 +13,7 @@
   width: '18rem';
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .podcast-card-image{

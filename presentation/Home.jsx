@@ -28,9 +28,11 @@ export const Home = ({}) => {
 
     return(
         <div className={nightMode}>
-        <Navbar />
-        <button onClick={toggleNightMode}>Toggle Mode</button>
-         {allShows?.map((show) => <CardPreview image={show.image} title={show.title} seasons={show.seasons}/> )} 
+          <Navbar />
+          <button onClick={toggleNightMode}>Toggle Mode</button>
+          <div>
+            {allShows?.map((show) => <CardPreview image={show.image} title={show.title} seasons={show.seasons}/> )} 
+          </div>
         </div>
     )
 }
