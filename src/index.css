@@ -8,6 +8,17 @@
 .li {
   margin-right: 10px;
 }
+.card{
+  width: '18rem';
+  display: flex;
+  flex-direction: column;
+}
+
+.podcast-card-image{
+  width: 150px;
+  height: auto;
+  border-radius: inherit;
+}
 
 .day {
   background-color: white;

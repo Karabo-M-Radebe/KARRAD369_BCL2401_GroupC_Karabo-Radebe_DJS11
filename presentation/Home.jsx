@@ -1,19 +1,27 @@
-import Navbar from "../components/Navbar"
-import { Card } from "../components/Card"
+import { Navbar } from "../components/Navbar"
+import { CardPreview } from "../components/Card"
 import {useEffect, useState} from "react"
 import { useStore } from "../services/store"
+import { fetchPodcasts } from "../api"
 
 export const Home = ({}) => {
 
-    const [allShows, setAllShows] = useState()
+
+    const [allShows, setAllShows] = useState([])
+    const [error, setError] = useState(null)
     useEffect(() => {
-      fetch('https://podcast-api.netlify.app')
-      .then(response => response.json())
-      .then(data => setAllShows(data))
-      .catch(error => {throw error})
+      const fetchData = async () => {
+        try {
+          const data = await fetchPodcasts();
+          setAllShows(data);
+          } catch (error) {
+            setError(error)
+        }
+      }
+      fetchData();
     }, [])
 
-    //console.log(allShows)
+    console.log(allShows)
 
   const nightMode = useStore((state) => state.nightMode)
   const toggleNightMode = useStore((state) => state.toggleMode)
@@ -22,7 +30,7 @@ export const Home = ({}) => {
         <div className={nightMode}>
         <Navbar />
         <button onClick={toggleNightMode}>Toggle Mode</button>
-         {allShows?.map((show) => <Card image={show.image} title={show.title} description={show.description}/> )} 
+         {allShows?.map((show) => <CardPreview image={show.image} title={show.title} seasons={show.seasons}/> )} 
         </div>
     )
 }
