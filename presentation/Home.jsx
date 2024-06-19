@@ -1,5 +1,5 @@
 import { Navbar } from "../components/Navbar"
-import { CardPreview } from "../components/Card"
+import { Card } from "../components/Card"
 import {useEffect, useState} from "react"
 import { useStore } from "../services/store"
 import { fetchPodcasts } from "../api"
@@ -31,7 +31,7 @@ export const Home = ({}) => {
           <Navbar />
           <button onClick={toggleNightMode}>Toggle Mode</button>
           <div>
-            {allShows?.map((show) => <CardPreview image={show.image} title={show.title} seasons={show.seasons}/> )} 
+            {allShows?.map((show) => <Card image={show.image} title={show.title} seasons={show.seasons}/> )} 
           </div>
         </div>
     )
