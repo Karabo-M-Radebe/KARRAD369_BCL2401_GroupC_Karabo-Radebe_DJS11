@@ -1,0 +1,10 @@
+.Navbar {
+    display: flex;
+    list-style-type: none;
+    float: right;
+    margin-bottom: 150px;
+  }
+  
+  .li {
+    margin-right: 10px;
+  }
