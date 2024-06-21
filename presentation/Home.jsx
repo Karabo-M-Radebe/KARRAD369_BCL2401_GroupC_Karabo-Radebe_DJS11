@@ -12,6 +12,7 @@ export const Home = () => {
   const [loading, setLoading] = useState(false)
   const [sorted, setSorted] =useState([])
   const [searchParams, setSearchParams] = useSearchParams()
+  const [favourites, setFavourites] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +20,13 @@ export const Home = () => {
         const data = await fetchPodcasts();
         setAllShows(data);
         setSorted(data);
+
+        if (auth.currentUser) {
+          const q = query(collection(db, "favourites"), where("userId", "==", auth.currentUser.uid));
+          const querySnapshot = await getDocs(q);
+          const favs = querySnapshot.docs.map((doc) => ({ ...doc.data(), docId: doc.id }));
+          setFavourites(favs);
+        }
         } catch (error) {
           setError(error)
       }
@@ -51,7 +59,26 @@ export const Home = () => {
 
   setSorted(sortedShows)
  };
-
+ 
+ const toggleFavourite = async (episode) => {
+  const user = auth.currentUser;
+  if (!user) return;
+  
+  const favIndex = favourites.findIndex(fav => fav.id === episode.id);
+  if (favIndex >= 0) {
+    // Remove from favorites
+    const favDoc = favourites[favIndex];
+    await deleteDoc(doc(db, "favourites", favDoc.docId));
+    setFavourites(favourites.filter(fav => fav.id !== episode.id));
+  } else {
+    // Add to favorites
+    const favDoc = await addDoc(collection(db, "favorites"), {
+      ...episode,
+      userId: user.uid
+    });
+    setFavourites([...favourites, { ...episode, docId: favDoc.id }]);
+  }
+};
 
  const buttonGenre = Object.keys(genreInfo).map((key) => (
   <button key={key} className="genre-button" onClick={() => setSearchParams({genre: key})}>
@@ -88,8 +115,8 @@ export const Home = () => {
             <div className="podcast-info">
               <h3>{show.title}</h3>
               <p>Seasons: {show.seasons}</p>
-              <button onClick={() => toggleFavorite(show)}>
-                {favorites.some(fav => fav.id === show.id) ? 'Remove from Favorites' : 'Add to Favorites'}
+              <button onClick={() => toggleFavourite(show)}>
+                {favourites.some(fav => fav.id === show.id) ? 'Remove from Favourites' : 'Add to Favourites'}
               </button>
             </div>
           </div>
