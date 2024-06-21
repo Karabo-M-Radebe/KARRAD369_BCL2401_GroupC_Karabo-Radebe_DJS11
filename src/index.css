@@ -1,32 +1,13 @@
-
-.Navbar {
+.site-wrapper {
+  min-height: 100vh;
   display: flex;
-  list-style-type: none;
-  float: right;
-  margin-bottom: 150px;
-}
-
-.li {
-  margin-right: 10px;
+  flex-direction: column;
 }
 
 .g-4{
   max-width: fit-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-}
-
-.card{
-  width: '18rem';
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.podcast-card-image{
-  width: 350px;
-  height: auto;
-  border-radius: inherit;
 }
 
 .img-btn{

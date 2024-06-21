@@ -1,38 +1,36 @@
-import { Navbar } from "../components/Navbar"
-import { Card } from "../components/Card"
-import {useEffect, useState} from "react"
-import { useStore } from "../services/store"
-import { fetchPodcasts } from "../api"
+import { CardPreview } from "../components/CardPreview/CardPreview";
+import {useEffect, useState} from "react";
+import { fetchPodcasts } from "../api";
+import { _Carousel } from "../components/Carousel/Carousel";
 
-export const Home = ({}) => {
+export const Home = () => {
 
-
-    const [allShows, setAllShows] = useState([])
-    const [error, setError] = useState(null)
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await fetchPodcasts();
-          setAllShows(data);
-          } catch (error) {
-            setError(error)
-        }
+  const [allShows, setAllShows] = useState([])
+  const [error, setError] = useState(null)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchPodcasts();
+        setAllShows(data);
+        } catch (error) {
+          setError(error)
       }
-      fetchData();
-    }, [])
+    }
+    fetchData();
+  }, [])
 
-    console.log(allShows)
+  // console.log(allShows)
+ 
 
-  const nightMode = useStore((state) => state.nightMode)
-  const toggleNightMode = useStore((state) => state.toggleMode)
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
-    return(
-        <div className={nightMode}>
-          <Navbar />
-          <button onClick={toggleNightMode}>Toggle Mode</button>
-          <div>
-            {allShows?.map((show) => <Card image={show.image} title={show.title} seasons={show.seasons}/> )} 
-          </div>
-        </div>
-    )
-}
+  return(
+    <>
+      {allShows.map(show => (
+        <CardPreview key={show.id} image={show.image} title={show.title} seasons={show.seasons} />
+      ))}
+    </>
+  )
+, []}
