@@ -2,11 +2,11 @@ import { CardPreview } from "../components/CardPreview/CardPreview";
 import {useEffect, useState} from "react";
 import { fetchPodcasts } from "../services/api";
 import { _Carousel } from "../components/Carousel/Carousel";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { genreInfo } from "../services/genres";
 import { auth, db } from "../services/firebaseConfig";
 import { collection, addDoc, deleteDoc, doc, query, where, getDocs } from "firebase/firestore";
-
+ 
 export const Home = () => {
 
   const [allShows, setAllShows] = useState([])
@@ -68,13 +68,13 @@ export const Home = () => {
   
   const favIndex = favourites.findIndex(fav => fav.id === episode.id);
   if (favIndex >= 0) {
-    // Remove from favorites
+    // Remove from favourites
     const favDoc = favourites[favIndex];
     await deleteDoc(doc(db, "favourites", favDoc.docId));
     setFavourites(favourites.filter(fav => fav.id !== episode.id));
   } else {
-    // Add to favorites
-    const favDoc = await addDoc(collection(db, "favorites"), {
+    // Add to favourites
+    const favDoc = await addDoc(collection(db, "favourites"), {
       ...episode,
       userId: user.uid
     });
@@ -113,6 +113,7 @@ export const Home = () => {
       {sorted.map((show) => (
         <div key={show.id} className="card-container">
           <div className="podcast-card">
+          <Link to={`/${show.id}`}><img src={show.image} alt={show.title} /></Link>
             <img src={show.image} alt={show.title} />
             <div className="podcast-info">
               <h3>{show.title}</h3>
