@@ -4,6 +4,8 @@ import { fetchPodcasts } from "../services/api";
 import { _Carousel } from "../components/Carousel/Carousel";
 import { useSearchParams } from "react-router-dom";
 import { genreInfo } from "../services/genres";
+import { auth, db } from "../services/firebaseConfig";
+import { collection, addDoc, deleteDoc, doc, query, where, getDocs } from "firebase/firestore";
 
 export const Home = () => {
 
@@ -115,9 +117,10 @@ export const Home = () => {
             <div className="podcast-info">
               <h3>{show.title}</h3>
               <p>Seasons: {show.seasons}</p>
-              <button onClick={() => toggleFavourite(show)}>
+              <p>Last Updated: {new Date(show.updated).toLocaleString()}</p>
+              {/* <button onClick={() => toggleFavourite(show)}>
                 {favourites.some(fav => fav.id === show.id) ? 'Remove from Favourites' : 'Add to Favourites'}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
