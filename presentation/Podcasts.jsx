@@ -24,7 +24,6 @@ export const Podcasts = () => {
 
     return (
         <div>
-            <Navbar/>
             {/* <button onClick={toggleNightMode}>Toggle Mode</button> */}
             {allShows.map(show => (
       <Card key={show.id} image={show.image} title={show.title} seasons={show.seasons} />
