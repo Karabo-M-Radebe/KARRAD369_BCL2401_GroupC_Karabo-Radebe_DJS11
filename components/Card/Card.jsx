@@ -1,6 +1,6 @@
 import './Card.css'
 
-export const _Card = ({image, title, seasons}) => {
+export const Card = ({image, title, seasons}) => {
     return(
         <>
             <div className='card-style' >

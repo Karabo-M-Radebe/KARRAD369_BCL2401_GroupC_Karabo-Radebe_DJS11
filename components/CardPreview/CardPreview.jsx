@@ -1,8 +1,9 @@
 import './CardPreview.css';
+import { Link } from 'react-router-dom';
 
 export const CardPreview = ({image, title, seasons, id}) => {
     return(
-        <>
+        <Link to=''>
           <div className='card-style' >
                 <img className='podcast-card-image' src={image} />
                 <div>
@@ -11,7 +12,7 @@ export const CardPreview = ({image, title, seasons, id}) => {
                     <p>{id}</p>
                 </div>
            </div>
-        </>
+        </Link>
     )
 
 }
