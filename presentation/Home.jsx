@@ -1,6 +1,6 @@
 import { CardPreview } from "../components/CardPreview/CardPreview";
 import {useEffect, useState} from "react";
-import { fetchPodcasts } from "../api";
+import { fetchPodcasts } from "../services/api";
 import { _Carousel } from "../components/Carousel/Carousel";
 
 export const Home = () => {

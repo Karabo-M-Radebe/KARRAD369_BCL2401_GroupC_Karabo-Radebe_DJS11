@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Card } from "../components/Card/Card"
 import { useStore } from "../services/store"
-import { fetchPodcasts } from "../api"
+import { fetchPodcasts } from "../services/api"
 import { Navbar } from "../components/Navbar/Navbar";
 
 export const Podcasts = () => {
