@@ -1,27 +1,23 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { Home } from '../presentation/Home.jsx';
-import { Layout } from '../presentation/Layout.jsx';
-import { Favourites } from '../presentation/Favourites.jsx';
-import { CardPreview } from '../components/CardPreview/CardPreview.jsx';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Favourites } from "../presentation/Favourites/Favourites";
+import { Home } from "../presentation/Home/Home";
+import { Layout } from "../presentation/Layout/Layout";
+import { CardPreview } from "../components/CardPreview/CardPreview";
+import { Library } from "../presentation/Library/Library";
 
-
-
-
-export default function App () {
-
+export default function App() {
   return (
     <>
-    <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/:id" element={<CardPreview />} />
-            <Route path="favourites" element={<Favourites />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/favourites" element={<Favourites />} /> 
           </Route>
-        </Routes>
+        </Routes> 
       </BrowserRouter>
     </>
   );
 }
-
-
