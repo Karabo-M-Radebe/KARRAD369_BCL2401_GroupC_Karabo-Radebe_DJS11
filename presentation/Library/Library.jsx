@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { fetchPodcasts } from "../../src/assets/services/api";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { genreCategory } from "../../src/assets/services/genres";
 import "./Library.css";
+import { IoSearchCircleOutline } from "react-icons/io5";
 
 export const Library = () => {
   const [allShows, setAllShows] = useState([]);
   const [filteredShows, setFilteredShows] = useState([]);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +27,15 @@ export const Library = () => {
     };
     fetchData();
   }, []);
+
+
+  const handleSearch = () => {
+    if (isSearchActive) {
+      navigate(`/library?search=${searchQuery}`);
+    } else {
+      setIsSearchActive(true);
+    }
+  };
 
   useEffect(() => {
     const genreFilter = searchParams.get("genre");
@@ -69,6 +82,20 @@ export const Library = () => {
 
   return (
     <>
+      <div className="search-container">
+        {isSearchActive && (
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        )}
+        <button onClick={handleSearch}>
+          <IoSearchCircleOutline/>
+        </button>
+      </div>
+
       <div className="dropdown-container">
         <div className="genre-dropdown">
           <select onChange={(e) => setSearchParams({ genre: e.target.value })}>

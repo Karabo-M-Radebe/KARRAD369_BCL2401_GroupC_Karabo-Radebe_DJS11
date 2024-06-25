@@ -36,6 +36,7 @@
   .carousel-title {
     font-size: 1.5rem;
     margin: 0.5rem 0;
+    text-decoration: none;
   }
   
   .carousel-button {
@@ -51,10 +52,12 @@
   
   .carousel-button.prev {
     left: 10px;
+    border-radius: 30px;
   }
   
   .carousel-button.next {
     right: 10px;
+    border-radius: 30px;
   }
   
   .carousel-button:hover {
